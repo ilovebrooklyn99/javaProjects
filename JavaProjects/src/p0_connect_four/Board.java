@@ -7,6 +7,7 @@ public class Board {
 	
 	public Board() {
 		//no-arg constructor
+		//hello
 	}
 	
 	public Board(int rows, int cols) {
