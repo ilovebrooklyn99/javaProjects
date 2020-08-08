@@ -2,6 +2,7 @@ package p6_tic_tac_toe;
 
 public class Board {
 	private String[][] board;
+	private int turns = 0;
 	
 	public Board() {
 		board = new String[3][3];
@@ -12,7 +13,13 @@ public class Board {
 		}
 	}
 	
+	public String[][] getBoard(){
+		return this.board;
+	}
+	
+	//clear whole board
 	public void clearBoard(String[][] b) {
+		turns = 0;
 		for(int i = 0; i < b.length; i++) {
 			for(int j = 0; j < b[i].length; j++) {
 				b[i][j] = "?";
@@ -36,28 +43,37 @@ public class Board {
 	}
 	
 	//action method
-	public void turn(Player p, int row, int col) {
+	public boolean validTurn(Player p, int row, int col) {
 		if(row > 2 || col > 2) {
 			System.out.println("You may choose rows or cols between 0 and 2.");
+			display();
+			return false;
 		}
 		else if(this.board[row][col].equals("x") || this.board[row][col].equals("o")) {
 			System.out.println("That space is already filled. Try again.");
+			display();
+			return false;
 		}
 		else {
 			board[row][col] = p.getPiece();
+			display();
+			return true;
 		}
 			
-		display();
+		
+	}
+	
+	public int getTurns() {
+		return this.turns;
 	}
 	
 	//check if someone won
 	public boolean winner(Player p) {
 		String s = p.getPiece();
-		
+		this.turns++;
 		//diagonal wins
 		if( board[0][0].equals(s) && board[1][1].equals(s) && board[2][2].equals(s) || 
 				board[0][2].equals(s) && board[1][1].equals(s) && board[2][0].equals(s) ) {
-			System.out.println("Congrats " + p.getName());
 			clearBoard(this.board);
 			return true;
 		}
@@ -67,16 +83,17 @@ public class Board {
 			if(board[i][0].equals(s) && board[i][1].equals(s) && board[i][2].equals(s) || 
 					board[0][i].equals(s) && board[1][i].equals(s) && board[2][i].equals(s)
 					) {
-				System.out.println("Congrats " + p.getName());
 				clearBoard(this.board);
 				return true; 
 			}
 		}
 		
+		//if all 9 spaces have been filled and no winner, its a draw
+		if(this.turns == 9) {
+			
+		}
 		
 		return false;
 	}
-	
-	
 	
 }
