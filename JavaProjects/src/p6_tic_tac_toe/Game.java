@@ -38,6 +38,7 @@ public class Game {
 				finished1 = b.validTurn(p1, row1, col1);
 			}
 			
+			//p1 wins
 			if( b.winner(p1) ) {
 				System.out.println("Congratulations " + p1.getName() + "! Press any key to continue or 3 to exit.");
 				if(input.next().equals("3")) {
@@ -47,7 +48,8 @@ public class Game {
 					b.display();
 				}
 			}
-			System.out.println(b.getTurns());
+			
+			//draw
 			if(b.getTurns() == 9) {
 				System.out.println("A draw! Press any key to continue or 3 to exit.");
 				if(input.next().equals("3")) {
@@ -68,6 +70,8 @@ public class Game {
 				int col2 = input.nextInt();
 				finished2 = b.validTurn(p2, row2, col2);
 			}//while
+			
+			//p2 wins
 			if( b.winner(p2) ) {
 				System.out.println("Congratulations " + p2.getName() + "! Press any key to continue or 3 to exit.");
 				if(input.nextLine().equals("3")) {
@@ -79,7 +83,7 @@ public class Game {
 				}
 			}
 			
-			System.out.println(b.getTurns());
+			//draw
 			if(b.getTurns() >= 9) {
 				if(input.next().equals("3")) {
 					System.exit(0);
